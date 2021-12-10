@@ -1,0 +1,26 @@
+version: '3.2'
+services:
+  es:
+     image: docker.elastic.co/elasticsearch/elasticsearch:7.10.2
+     restart: always
+     environment:
+       - http.host=0.0.0.0
+       - transport.host=127.0.0.1
+       - xpack.security.enabled=false
+     ports:
+       - 9200:9200
+     volumes:
+       - esdata:/usr/share/elasticsearch/data
+     container_name: elasticsearch
+  kibana:
+     image: docker.elastic.co/kibana/kibana:7.10.2
+     restart: always
+     environment:
+       - xpack.security.enabled=false
+       - xpack.reporting.enabled=false
+       - xpack.monitoring.enabled=falsecd
+     ports:
+       - 5601:5601
+     container_name: kibana
+volumes:
+  esdata:
